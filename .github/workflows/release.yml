@@ -17,11 +17,20 @@ jobs:
               run: npm ci
             - name: Build
               run: npm run build
+            - name: Package Artifacts
+              run: |
+                shopt -s nullglob
+                artifacts=(dist/*.js dist/*.js.gz dist/*.js.br dist/*.LICENSE.txt)
+                if [ ${#artifacts[@]} -eq 0 ]; then
+                  echo "No dist artifacts found" >&2
+                  exit 1
+                fi
+                zip -j "dist/simon42-dashboard-strategy-${GITHUB_REF_NAME}.zip" "${artifacts[@]}"
             - name: Release
               uses: softprops/action-gh-release@v1
               if: startsWith(github.ref, 'refs/tags/')
               with:
                 draft: true
                 generate_release_notes: true
-                files: dist/*.js
+                files: dist/*.zip
 
