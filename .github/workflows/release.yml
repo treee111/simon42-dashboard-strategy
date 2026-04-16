@@ -9,6 +9,10 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v6
+            - name: Use Node.js LTS 22.15.1
+              uses: actions/setup-node@v4
+              with:
+                node-version: 22.15.1
             - name: Install
               run: npm ci
             - name: Build
@@ -17,7 +21,7 @@ jobs:
               uses: softprops/action-gh-release@v1
               if: startsWith(github.ref, 'refs/tags/')
               with:
-                  draft: true
-                  generate_release_notes: true
-                  files: dist/*.js
+                draft: true
+                generate_release_notes: true
+                files: dist/*.js
 
