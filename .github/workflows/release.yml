@@ -9,10 +9,6 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v6
-            - name: Use Node.js LTS 22.15.1
-              uses: actions/setup-node@v4
-              with:
-                node-version: 22.15.1
             - name: Install
               run: npm ci
             - name: Build
@@ -27,7 +23,7 @@ jobs:
                 fi
                 zip -j "dist/simon42-dashboard-strategy-${GITHUB_REF_NAME}.zip" "${artifacts[@]}"
             - name: Release
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v3
               if: startsWith(github.ref, 'refs/tags/')
               with:
                 draft: true
