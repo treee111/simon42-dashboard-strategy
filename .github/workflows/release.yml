@@ -20,7 +20,7 @@ jobs:
             - name: Package Artifacts
               run: |
                 shopt -s nullglob
-                artifacts=(dist/*.js dist/*.js.gz dist/*.js.br dist/*.LICENSE.txt)
+                artifacts=(dist/*)
                 if [ ${#artifacts[@]} -eq 0 ]; then
                   echo "No dist artifacts found" >&2
                   exit 1
